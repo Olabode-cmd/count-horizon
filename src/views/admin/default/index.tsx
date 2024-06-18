@@ -13,6 +13,8 @@ import CheckTable from 'views/admin/rtl/components/CheckTable';
 import PieCard from 'views/admin/default/components/PieCard';
 import TotalSpent from 'views/admin/default/components/TotalSpent';
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck';
+import tableRecentStock from 'views/admin/default/variables/tableRecentStock';
+import RecentStockCountTable from './components/RecentStockCountTable';
 
 export default function Dashboard() {
   // Chakra Color Mode - 015e63
@@ -93,9 +95,10 @@ export default function Dashboard() {
         <TotalSpent />
         {/* <WeeklyRevenue /> */}
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         {/* <CheckTable tableData={tableDataCheck} /> */}
-        <PieCard />
+        <RecentStockCountTable tableData={tableRecentStock} />
+        {/* <PieCard /> */}
       </SimpleGrid>
     </Box>
   );

@@ -1,6 +1,5 @@
 import {
   Box,
-  Text,
   useColorModeValue,
   Flex,
   Button,
@@ -12,16 +11,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Input,
-  Select,
 } from "@chakra-ui/react";
 
 import WarehouseTable from "./components/WarehouseTable";
 import tableWarehouses from "./variables/tableWarehouses";
 
 export default function Warehouse() {
-  // Chakra Color Mode - 015e63
-  //   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
 

@@ -6,6 +6,7 @@ import {
   MdLock,
   MdOutlineShoppingCart,
   MdAccessTime,
+  MdOutlineFileCopy,
   MdWarehouse,
 } from "react-icons/md";
 
@@ -13,6 +14,7 @@ import {
 import MainDashboard from 'views/admin/default';
 import Warehouse from 'views/admin/warehouse';
 import CountSession from 'views/admin/session';
+import Report from 'views/admin/report';
 import NFTMarketplace from 'views/admin/marketplace';
 import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
@@ -62,20 +64,35 @@ const routes = [
     component: Warehouse,
   },
   {
-    name: "NFT Marketplace",
+    name: "Report",
     layout: "/admin",
-    path: "/nft-marketplace",
+    path: "/report",
     icon: (
       <Icon
-        as={MdOutlineShoppingCart}
+        as={MdOutlineFileCopy}
         width="20px"
         height="20px"
+        mt={1}
         color="inherit"
       />
     ),
-    component: NFTMarketplace,
-    secondary: true,
+    component: Report,
   },
+  //   {
+  //     name: "NFT Marketplace",
+  //     layout: "/admin",
+  //     path: "/nft-marketplace",
+  //     icon: (
+  //       <Icon
+  //         as={MdOutlineShoppingCart}
+  //         width="20px"
+  //         height="20px"
+  //         color="inherit"
+  //       />
+  //     ),
+  //     component: NFTMarketplace,
+  //     secondary: true,
+  //   },
   // {
   // 	name: 'Data Tables',
   // 	layout: '/admin',

@@ -3,10 +3,8 @@ import { Box, Button, Flex, Icon, Text, useColorModeValue, Tag } from '@chakra-u
 // Custom components
 import Card from 'components/card/Card';
 import LineChart from 'components/charts/LineChart';
-import { IoCheckmarkCircle } from 'react-icons/io5';
 import { MdBarChart, MdOutlineCalendarToday } from 'react-icons/md';
 // Assets
-import { RiArrowUpSFill } from 'react-icons/ri';
 import { lineChartDataTotalSpent, lineChartOptionsTotalSpent } from 'variables/charts';
 
 export default function TotalSpent(props: { [x: string]: any }) {
@@ -14,7 +12,7 @@ export default function TotalSpent(props: { [x: string]: any }) {
 
 	// Chakra Color Mode
 
-	const textColor = useColorModeValue('secondaryGray.900', 'white');
+	// const textColor = useColorModeValue('secondaryGray.900', 'white');
 	const textColorSecondary = useColorModeValue('secondaryGray.600', 'white');
 	const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100');
 	const iconColor = useColorModeValue('brand.500', 'white');
@@ -97,14 +95,14 @@ export default function TotalSpent(props: { [x: string]: any }) {
           />
         </Box>
         <Box>
-          <Flex mb='3'>
+          <Flex mb="3">
             <Text>Stock Variances:</Text>
-            <Tag p="3" colorScheme="purple" variant="solid" ml="2"></Tag>
+            <Tag p="3" bg="#015e63" variant="solid" ml="2"></Tag>
           </Flex>
 
           <Flex>
             <Text>Inventory Level:</Text>
-            <Tag p="3" colorScheme="cyan" variant="solid" ml="4"></Tag>
+            <Tag p="3" bg="#0db6be" variant="solid" ml="4"></Tag>
           </Flex>
         </Box>
       </Flex>

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
 :root {
   --color-green: #015e63;
+  --color-green-light: #0db6be;
 }
 body {
   font-family: "DM Sans", sans-serif;
@@ -8,4 +9,39 @@ body {
 
 option {
   color: black;
+}
+
+.btn {
+  padding: .5rem 1rem;
+  border-radius: 0px;
+  font-size: .9rem;
+  display: inline-block;
+}
+
+.btn-green {
+  background: linear-gradient(to right, #000 50%, #015e63 50%);
+  background-size: 200%;
+  background-position: right;
+  color: #fff;
+  transition: .3s;
+}
+.btn-green:hover {
+  background-position: left;
+}
+
+.btn-ghost {
+  background: transparent;
+  transition: .3s;
+}
+.btn-ghost:hover {
+  background: #eeeeee48;
+}
+
+.btn-alt {
+  background: #000;
+  color: #fff;
+  transition: .3s;
+}
+.btn-alt:hover {
+  background: var(--color-green);
 }

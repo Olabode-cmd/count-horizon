@@ -9,10 +9,7 @@ import {
   MdSupervisedUserCircle,
   MdOutlineCardGiftcard,
 } from "react-icons/md";
-import CheckTable from 'views/admin/rtl/components/CheckTable';
-import PieCard from 'views/admin/default/components/PieCard';
 import TotalSpent from 'views/admin/default/components/TotalSpent';
-import tableDataCheck from 'views/admin/default/variables/tableDataCheck';
 import tableRecentStock from 'views/admin/default/variables/tableRecentStock';
 import RecentStockCountTable from './components/RecentStockCountTable';
 

@@ -97,7 +97,7 @@ export default function AdminNavbar(props: {
         mb={gap}
       >
         <Box mb={{ sm: "8px", md: "0px" }}>
-          <Tag borderRadius="full" colorScheme="green" variant="solid">
+          <Tag borderRadius="full" bg="#015e63" variant="solid">
             Warehouse Manager
           </Tag>
         </Box>

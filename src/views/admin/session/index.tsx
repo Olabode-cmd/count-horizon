@@ -27,9 +27,9 @@ export default function CountSession() {
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Flex justifyContent="end">
-        <Button colorScheme="blue" borderRadius="0px" onClick={onOpen}>
+        <button className="btn btn-green" onClick={onOpen}>
           Create Session
-        </Button>
+        </button>
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -54,12 +54,12 @@ export default function CountSession() {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} borderRadius="0px">
+              <button className="btn btn-green">
                 Create
-              </Button>
-              <Button variant="ghost" onClick={onClose}>
+              </button>
+              <button className="btn btn-ghost" onClick={onClose}>
                 Close
-              </Button>
+              </button>
             </ModalFooter>
           </ModalContent>
         </Modal>

@@ -12,6 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import * as React from "react";
+// import Link from "next/link";
 
 import {
   createColumnHelper,
@@ -26,9 +27,12 @@ import {
 import Card from "components/card/Card";
 
 type RowObj = {
-  id: number;
+  whNumber: string;
   name: string;
   location: string;
+  status: string;
+  responsiblePerson: string;
+  action: any;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -41,8 +45,8 @@ export default function WarehouseTable(props: { tableData: any }) {
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
   const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
+    columnHelper.accessor("whNumber", {
+      id: "whNumber",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -50,7 +54,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          ID
+          WAREHOUSE NUMBER
         </Text>
       ),
       cell: (info) => (
@@ -93,6 +97,60 @@ export default function WarehouseTable(props: { tableData: any }) {
         <Text color={textColor} fontSize="sm" fontWeight="700">
           {info.getValue()}
         </Text>
+      ),
+    }),
+    columnHelper.accessor("responsiblePerson", {
+      id: "responsiblePerson",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          RESPONSIBLE PERSON
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor("status", {
+      id: "status",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          STATUS
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor("action", {
+      id: "action",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          ACTION
+        </Text>
+      ),
+      cell: () => (
+        
+          <button className="btn btn-green">View</button>
+        
       ),
     }),
   ];

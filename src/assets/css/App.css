@@ -2,6 +2,9 @@
 :root {
   --color-green: #015e63;
   --color-green-light: #0db6be;
+
+  --color-orange: #f3bb01;
+  --color-grey: #cecac1;
 }
 body {
   font-family: "DM Sans", sans-serif;
@@ -44,4 +47,11 @@ option {
 }
 .btn-alt:hover {
   background: var(--color-green);
+}
+
+.ml-2 {
+  margin-left: 10px;
+}
+.mr-2 {
+  margin-right: 10px;
 }

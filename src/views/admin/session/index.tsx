@@ -3,7 +3,6 @@ import {
   Text,
   useColorModeValue,
   Flex,
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -13,10 +12,9 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
-  Select,
 } from "@chakra-ui/react";
-import UpcomingSessionTable from "./components/UpcomingSessionTable";
-import tableUpcomingSession from "./variables/tableUpcomingSessions";
+import SessionTable from "./components/sessionTable"
+import tableSession from "./variables/tableSessions";
 
 export default function CountSession() {
   // Chakra Color Mode - 015e63
@@ -38,25 +36,18 @@ export default function CountSession() {
             <ModalCloseButton />
             <ModalBody>
               {/* <Lorem count={2} /> */}
-              <Input placeholder="Session name" mb="2" />
-              <Input type="date" mb="2" />
-              <Select placeholder="Select count lead" mb="2">
-                <option value="option1">John Doe</option>
-                <option value="option2">Mary Doe</option>
-                <option value="option3">Matt Doe</option>
-              </Select>
+              <Input placeholder="Session name" mb="4" />
 
-              <Select placeholder="Select warehouse">
-                <option value="option1">Raven Avenue</option>
-                <option value="option2">Pen Avenue</option>
-                <option value="option3">Open Stores</option>
-              </Select>
+              <Text mb='3' fontWeight='bold'>Count Session Period</Text>
+              <Text>From:</Text>
+              <Input type="date" mb="2" />
+
+              <Text>To:</Text>
+              <Input type="date" mb="4" />
             </ModalBody>
 
             <ModalFooter>
-              <button className="btn btn-green">
-                Create
-              </button>
+              <button className="btn btn-green">Create</button>
               <button className="btn btn-ghost" onClick={onClose}>
                 Close
               </button>
@@ -66,7 +57,7 @@ export default function CountSession() {
       </Flex>
 
       <Box mt="3">
-        <UpcomingSessionTable tableData={tableUpcomingSession} />
+        <SessionTable tableData={tableSession} />
       </Box>
     </Box>
   );

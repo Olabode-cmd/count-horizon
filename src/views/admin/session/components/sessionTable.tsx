@@ -2,7 +2,6 @@ import {
   Flex,
   Box,
   Table,
-  Checkbox,
   Tbody,
   Td,
   Text,
@@ -10,6 +9,17 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Tag,
+  Button,
+  SimpleGrid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
 
@@ -24,23 +34,27 @@ import {
 
 // Custom components
 import Card from "components/card/Card";
+import { info } from "console";
 
 type RowObj = {
   id: number;
   name: string;
-  warehouse: string;
-  countLead: string;
+  status: string;
   date: string;
+  // action: any;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
 
 // const columns = columnsDataCheck;
-export default function UpcomingSessionTable(props: { tableData: any }) {
+export default function SessionTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   let defaultData = tableData;
   const columns = [
     columnHelper.accessor("id", {
@@ -79,8 +93,8 @@ export default function UpcomingSessionTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("warehouse", {
-      id: "warehouse",
+    columnHelper.accessor("status", {
+      id: "status",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -88,37 +102,13 @@ export default function UpcomingSessionTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          WAREHOUSE
+          STATUS
         </Text>
       ),
       cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
+        <Tag bg="#cecac1" fontSize="sm">
           {info.getValue()}
-        </Text>
-      ),
-    }),
-
-    columnHelper.accessor("countLead", {
-      id: "countLead",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          COUNT LEAD
-        </Text>
-      ),
-      cell: (info) => (
-        <Text
-          color={textColor}
-          fontSize="sm"
-          fontWeight="700"
-          textAlign="center"
-        >
-          {info.getValue()}
-        </Text>
+        </Tag>
       ),
     }),
     columnHelper.accessor("date", {
@@ -137,6 +127,45 @@ export default function UpcomingSessionTable(props: { tableData: any }) {
         <Text color={textColor} fontSize="sm" fontWeight="700">
           {info.getValue()}
         </Text>
+      ),
+    }),
+    columnHelper.accessor("name", {
+      id: "name",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          ACTION
+        </Text>
+      ),
+      cell: (info) => (
+        <Flex>
+          <button className="btn btn-green">View</button>
+          <button className="btn btn-green ml-2" onClick={onOpen}>
+            Config data
+          </button>
+
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Config data for {info.getValue()}</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text>hhfbjhfdjs</Text>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  Close
+                </Button>
+                <Button variant="ghost">Secondary Action</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </Flex>
       ),
     }),
   ];
@@ -166,7 +195,7 @@ export default function UpcomingSessionTable(props: { tableData: any }) {
           fontWeight="700"
           lineHeight="100%"
         >
-          Upcoming Count Sessions
+          Count Sessions
         </Text>
         {/* <Menu /> */}
       </Flex>

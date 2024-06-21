@@ -3,6 +3,7 @@ import {
   Box,
   Table,
   Checkbox,
+  Tag,
   Tbody,
   Td,
   Text,
@@ -10,6 +11,15 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
 // import Link from "next/link";
@@ -32,7 +42,38 @@ type RowObj = {
   location: string;
   status: string;
   responsiblePerson: string;
+  logisticAreaCode: string;
   action: any;
+  description: string;
+  plant: string;
+  storageLocation: string;
+  address: string;
+  type: string;
+  storageType: string;
+  storageTypeDes: string;
+  storageTypeRole: string;
+  placementStrategy: string;
+  removalStrategy: string;
+  capacityCheck: string;
+  weightCheck: string;
+  hazardousIndicator: string;
+  storageSection: string;
+  storageSectionDes: string;
+  sectionArea: string;
+  sectionVolume: string;
+  tempControl: string;
+  storageBin: string;
+  storageBinDes: string;
+  binType: string;
+  binCapacity: string;
+  binWeightCapacity: string;
+  binLength: string;
+  binWidth: string;
+  binHeight: string;
+  occupancyStatus: string;
+  binHazardousIndicator: string;
+  configurationDate: string;
+  lastUpdatedDate: string;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -44,6 +85,9 @@ export default function WarehouseTable(props: { tableData: any }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
+
   const columns = [
     columnHelper.accessor("whNumber", {
       id: "whNumber",
@@ -99,24 +143,6 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("responsiblePerson", {
-      id: "responsiblePerson",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          RESPONSIBLE PERSON
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
     columnHelper.accessor("status", {
       id: "status",
       header: () => (
@@ -127,6 +153,30 @@ export default function WarehouseTable(props: { tableData: any }) {
           color="gray.400"
         >
           STATUS
+        </Text>
+      ),
+      cell: (info) => {
+        const status = info.getValue();
+        const bgColor = status === "Active" ? "#e6ffe7" : "#ffe6e6";
+        const textColor = status === "Active" ? "#0ce917" : "#e91717";
+
+        return (
+          <Tag bg={bgColor} color={textColor} fontSize="sm" fontWeight="500">
+            {status}
+          </Tag>
+        );
+      },
+    }),
+    columnHelper.accessor("responsiblePerson", {
+      id: "responsiblePerson",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          RESPONSIBLE PERSON
         </Text>
       ),
       cell: (info) => (
@@ -147,13 +197,22 @@ export default function WarehouseTable(props: { tableData: any }) {
           ACTION
         </Text>
       ),
-      cell: () => (
-        
-          <button className="btn btn-green">View</button>
-        
+      cell: (info) => (
+        <Box>
+          <button
+            className="btn btn-green"
+            onClick={() => {
+              setSelectedRow(info.row.original);
+              onOpen();
+            }}
+          >
+            View
+          </button>
+        </Box>
       ),
     }),
   ];
+
   const [data, setData] = React.useState(() => [...defaultData]);
   const table = useReactTable({
     data,
@@ -166,6 +225,7 @@ export default function WarehouseTable(props: { tableData: any }) {
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
   });
+
   return (
     <Card
       flexDirection="column"
@@ -248,6 +308,40 @@ export default function WarehouseTable(props: { tableData: any }) {
           </Tbody>
         </Table>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Warehouse Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedRow && (
+              <Box>
+                <Text>
+                  <strong>Warehouse Number:</strong> {selectedRow.whNumber}
+                </Text>
+                <Text>
+                  <strong>Name:</strong> {selectedRow.name}
+                </Text>
+                <Text>
+                  <strong>Location:</strong> {selectedRow.location}
+                </Text>
+                <Text>
+                  <strong>Responsible Person:</strong>{" "}
+                  {selectedRow.responsiblePerson}
+                </Text>
+                <Text>
+                  <strong>Status:</strong> {selectedRow.status}
+                </Text>
+              </Box>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Card>
   );
 }

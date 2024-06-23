@@ -3,7 +3,7 @@
   --color-green: #015e63;
   --color-green-light: #0db6be;
 
-  --color-to-test: #e6ffe7;
+  --color-to-test: #1156d6;
 
   --color-orange: #f3bb01;
   --color-grey: #cecac1;
@@ -51,9 +51,20 @@ option {
   background: var(--color-green);
 }
 
+.btn-text {
+  background: transparent;
+  color: var(--color-green);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .ml-2 {
   margin-left: 10px;
 }
 .mr-2 {
   margin-right: 10px;
+}
+.mb-4 {
+  margin-bottom: 20px;
 }

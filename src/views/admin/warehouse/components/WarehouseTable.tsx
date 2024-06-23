@@ -3,6 +3,7 @@ import {
   Box,
   Table,
   Checkbox,
+  SimpleGrid,
   Tag,
   Tbody,
   Td,
@@ -308,7 +309,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           </Tbody>
         </Table>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+      <Modal isOpen={isOpen} onClose={onClose} size="5xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Warehouse Details</ModalHeader>
@@ -316,29 +317,170 @@ export default function WarehouseTable(props: { tableData: any }) {
           <ModalBody>
             {selectedRow && (
               <Box>
-                <Text>
-                  <strong>Warehouse Number:</strong> {selectedRow.whNumber}
-                </Text>
-                <Text>
-                  <strong>Name:</strong> {selectedRow.name}
-                </Text>
-                <Text>
-                  <strong>Location:</strong> {selectedRow.location}
-                </Text>
-                <Text>
-                  <strong>Responsible Person:</strong>{" "}
-                  {selectedRow.responsiblePerson}
-                </Text>
-                <Text>
-                  <strong>Status:</strong> {selectedRow.status}
-                </Text>
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Warehouse Number:</strong> {selectedRow.whNumber}
+                  </Text>
+                  <Text>
+                    <strong>Logistics Area Code:</strong>{" "}
+                    {selectedRow.logisticAreaCode}
+                  </Text>
+                  <Text>
+                    <strong>Name:</strong> {selectedRow.name}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Location:</strong> {selectedRow.location}
+                  </Text>
+                  <Text>
+                    <strong>Plant:</strong> {selectedRow.plant}
+                  </Text>
+                  <Text>
+                    <strong>Responsible Person:</strong>{" "}
+                    {selectedRow.responsiblePerson}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Status:</strong> {selectedRow.status}
+                  </Text>
+                  <Text>
+                    <strong>Description:</strong> {selectedRow.description}
+                  </Text>
+                  <Text>
+                    <strong>Type:</strong> {selectedRow.type}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Storage Location:</strong>{" "}
+                    {selectedRow.storageLocation}
+                  </Text>
+                  <Text>
+                    <strong>Address:</strong> {selectedRow.address}
+                  </Text>
+                  <Text>
+                    <strong>Storage Description:</strong>{" "}
+                    {selectedRow.storageTypeDes}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Storage Type Role:</strong>{" "}
+                    {selectedRow.storageTypeRole}
+                  </Text>
+                  <Text>
+                    <strong>Placement Strategy:</strong>{" "}
+                    {selectedRow.placementStrategy}
+                  </Text>
+                  <Text>
+                    <strong>Removal Strategy:</strong>{" "}
+                    {selectedRow.removalStrategy}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Capacity Check:</strong> {selectedRow.capacityCheck}
+                  </Text>
+                  <Text>
+                    <strong>Weight Check:</strong> {selectedRow.weightCheck}
+                  </Text>
+                  <Text>
+                    <strong>Hazardous Indicator:</strong>{" "}
+                    {selectedRow.hazardousIndicator}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Storage Section:</strong>{" "}
+                    {selectedRow.storageSection}
+                  </Text>
+                  <Text>
+                    <strong>Section Description:</strong>{" "}
+                    {selectedRow.storageSectionDes}
+                  </Text>
+                  <Text>
+                    <strong>Storage Area:</strong> {selectedRow.sectionArea}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Section Volume:</strong> {selectedRow.sectionVolume}
+                  </Text>
+                  <Text>
+                    <strong>Temperature Control:</strong>{" "}
+                    {selectedRow.tempControl}
+                  </Text>
+                  <Text>
+                    <strong>Storage Bin:</strong> {selectedRow.storageBin}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Bin Description:</strong>{" "}
+                    {selectedRow.storageBinDes}
+                  </Text>
+                  <Text>
+                    <strong>Bin Type:</strong> {selectedRow.binType}
+                  </Text>
+                  <Text>
+                    <strong>Bin Capacity:</strong> {selectedRow.binCapacity}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Bin Weight Capacity:</strong>{" "}
+                    {selectedRow.binWeightCapacity}
+                  </Text>
+                  <Text>
+                    <strong>Bin Length:</strong> {selectedRow.binLength}
+                  </Text>
+                  <Text>
+                    <strong>Bin Width:</strong> {selectedRow.binWidth}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Bin Height:</strong> {selectedRow.binHeight}
+                  </Text>
+                  <Text>
+                    <strong>Occupancy Status:</strong>{" "}
+                    {selectedRow.occupancyStatus}
+                  </Text>
+                  <Text>
+                    <strong>Bin Hazardous Indicator:</strong>{" "}
+                    {selectedRow.binHazardousIndicator}
+                  </Text>
+                </SimpleGrid>
+                <hr />
+                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
+                  <Text>
+                    <strong>Configuration Date:</strong>{" "}
+                    {selectedRow.configurationDate}
+                  </Text>
+                  <Text>
+                    <strong>Last Updated Date:</strong> {selectedRow.lastUpdatedDate}
+                  </Text>
+                </SimpleGrid>
+                <hr />
               </Box>
             )}
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <button className='btn btn-green' onClick={onClose}>
               Close
-            </Button>
+            </button>
           </ModalFooter>
         </ModalContent>
       </Modal>

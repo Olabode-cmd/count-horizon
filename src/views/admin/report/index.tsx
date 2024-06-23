@@ -9,6 +9,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Card from '../../../components/card/Card'
+import ReportTable from "./components/ReportTable";
+import tableReport from "./variables/tableReport";
 
 export default function Report() {
 
@@ -46,11 +48,53 @@ export default function Report() {
             <option value="option3">ICM</option>
           </Select>
 
-          <Flex justifyContent='end'>
-            <Button borderRadius='4px' colorScheme="blue">Generate</Button>
+          <Flex justifyContent="end">
+            <button className="btn btn-green">Generate</button>
           </Flex>
         </Card>
+
+        <Card>
+          <Text fontSize="lg" fontWeight="bold" mb="4">
+            Recent Reports
+          </Text>
+
+          <Box>
+            <Flex justifyContent="space-between" alignItems="center" p="4">
+              <Text>Report (Apr 16-May16)</Text>
+
+              <Flex>
+                <button className="btn btn-green">View PDF</button>
+                <button className="btn btn-green ml-2">View Excel</button>
+              </Flex>
+            </Flex>
+            <hr />
+            <Flex justifyContent="space-between" alignItems="center" p="4">
+              <Text>Report (Apr 16-May16)</Text>
+
+              <Flex>
+                <button className="btn btn-green">View PDF</button>
+                <button className="btn btn-green ml-2">View Excel</button>
+              </Flex>
+            </Flex>
+            <hr />
+            <Flex justifyContent="space-between" alignItems="center" p="4">
+              <Text>Report (Apr 16-May16)</Text>
+
+              <Flex>
+                <button className="btn btn-green">View PDF</button>
+                <button className="btn btn-green ml-2">View Excel</button>
+              </Flex>
+            </Flex>
+
+            <Flex justifyContent="end" mt="2">
+              <button className="btn btn-text">View more</button>
+            </Flex>
+          </Box>
+        </Card>
       </SimpleGrid>
+      <Box mt="3">
+        <ReportTable tableData={tableReport} />
+      </Box>
     </Box>
   );
 }

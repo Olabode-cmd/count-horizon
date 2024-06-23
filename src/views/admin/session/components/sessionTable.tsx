@@ -53,7 +53,8 @@ export default function SessionTable(props: { tableData: any }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenViewModal, onOpen: onOpenViewModal, onClose: onCloseViewModal } = useDisclosure();
+  const { isOpen: isOpenConfigModal, onOpen: onOpenConfigModal, onClose: onCloseConfigModal } = useDisclosure();
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
   
 
@@ -154,12 +155,18 @@ export default function SessionTable(props: { tableData: any }) {
             className="btn btn-green"
             onClick={() => {
               setSelectedRow(info.row.original);
-              onOpen();
+              onOpenViewModal();
             }}
           >
             View
           </button>
-          <button className="btn btn-green ml-2" onClick={onOpen}>
+          <button
+            className="btn btn-green ml-2"
+            onClick={() => {
+              setSelectedRow(info.row.original);
+              onOpenConfigModal();
+            }}
+          >
             Config data
           </button>
         </Flex>
@@ -260,7 +267,7 @@ export default function SessionTable(props: { tableData: any }) {
           </Tbody>
         </Table>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpenViewModal} onClose={onCloseViewModal} size="xl">
         <ModalOverlay />
         <ModalContent>
           {selectedRow && (
@@ -281,6 +288,66 @@ export default function SessionTable(props: { tableData: any }) {
                   <hr />
                 </Box>
               </ModalBody>
+            </Box>
+          )}
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isOpenConfigModal} onClose={onCloseConfigModal} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          {selectedRow && (
+            <Box>
+              <ModalHeader>Config data: {selectedRow.name}</ModalHeader>
+              <ModalCloseButton />
+
+              <ModalBody>
+                <Box>
+                  <Text mb="2">
+                    Download the excel template if you don't already have it for
+                    all data, gently fill in the appropriate cells and upload
+                    details.
+                  </Text>
+                  <Text mb="4">
+                    Be sure to double-check details before uploading to avoid
+                    errors.
+                  </Text>
+                  <hr />
+                  <Text fontWeight="700" mt="2">
+                    Product List
+                  </Text>
+
+                  <Flex justifyContent="center" mt="2" mb="2">
+                    <button className="btn btn-green">Download Template</button>
+                    <button className="btn btn-alt ml-2">Upload Data</button>
+                  </Flex>
+                  <hr />
+
+                  <Text fontWeight="700" mt="2">
+                    List of materials
+                  </Text>
+
+                  <Flex justifyContent="center" mt="2" mb="2">
+                    <button className="btn btn-green">Download Template</button>
+                    <button className="btn btn-alt ml-2">Upload Data</button>
+                  </Flex>
+                  <hr />
+
+                  <Text fontWeight="700" mt="2">
+                    Batch details
+                  </Text>
+
+                  <Flex justifyContent="center" mt="2" mb="2">
+                    <button className="btn btn-green">Download Template</button>
+                    <button className="btn btn-alt ml-2">Upload Data</button>
+                  </Flex>
+                  <hr />
+                </Box>
+              </ModalBody>
+
+              <ModalFooter>
+                <button className="btn btn-green">Upload all</button>
+              </ModalFooter>
             </Box>
           )}
         </ModalContent>

@@ -22,7 +22,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
-
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   createColumnHelper,
   flexRender,
@@ -53,6 +54,7 @@ export default function SessionTable(props: { tableData: any }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
+  const history = useHistory();
   const { isOpen: isOpenViewModal, onOpen: onOpenViewModal, onClose: onCloseViewModal } = useDisclosure();
   const { isOpen: isOpenConfigModal, onOpen: onOpenConfigModal, onClose: onCloseConfigModal } = useDisclosure();
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
@@ -154,8 +156,7 @@ export default function SessionTable(props: { tableData: any }) {
           <button
             className="btn btn-green"
             onClick={() => {
-              setSelectedRow(info.row.original);
-              onOpenViewModal();
+              history.push(`/session/${info.row.original.id}`);
             }}
           >
             View
@@ -185,6 +186,41 @@ export default function SessionTable(props: { tableData: any }) {
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
   });
+
+  const [productListFileName, setProductListFileName] = useState<string | null>(
+    null
+  );
+  const [materialsFileName, setMaterialsFileName] = useState<string | null>(
+    null
+  );
+  const [batchDetailsFileName, setBatchDetailsFileName] = useState<
+    string | null
+  >(null);
+
+  const downloadTemplate = (templateName: string) => {
+    const templates: { [key: string]: string } = {
+      productList: "/ProductList.xlsx",
+      listOfMaterials: "/MaterialList.xlsx",
+      batchDetails: "/BatchDetails.xlsx",
+    };
+
+    const link = document.createElement("a");
+    link.href = templates[templateName];
+    link.download = templates[templateName];
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleFileUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setFileName: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setFileName(event.target.files[0].name);
+    }
+  };
+
   return (
     <Card
       flexDirection="column"
@@ -318,9 +354,33 @@ export default function SessionTable(props: { tableData: any }) {
                   </Text>
 
                   <Flex justifyContent="center" mt="2" mb="2">
-                    <button className="btn btn-green">Download Template</button>
-                    <button className="btn btn-alt ml-2">Upload Data</button>
+                    <button
+                      className="btn btn-green"
+                      onClick={() => downloadTemplate("productList")}
+                    >
+                      Download Template
+                    </button>
+                    <input
+                      type="file"
+                      id="productListUpload"
+                      onChange={(e) =>
+                        handleFileUpload(e, setProductListFileName)
+                      }
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="productListUpload"
+                      className="btn btn-alt ml-2"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Upload Data
+                    </label>
                   </Flex>
+                  {productListFileName && (
+                    <Text className="filename" color="green">
+                      {productListFileName} has been uploaded
+                    </Text>
+                  )}
                   <hr />
 
                   <Text fontWeight="700" mt="2">
@@ -328,9 +388,33 @@ export default function SessionTable(props: { tableData: any }) {
                   </Text>
 
                   <Flex justifyContent="center" mt="2" mb="2">
-                    <button className="btn btn-green">Download Template</button>
-                    <button className="btn btn-alt ml-2">Upload Data</button>
+                    <button
+                      className="btn btn-green"
+                      onClick={() => downloadTemplate("listOfMaterials")}
+                    >
+                      Download Template
+                    </button>
+                    <input
+                      type="file"
+                      id="listOfMaterialsUpload"
+                      onChange={(e) =>
+                        handleFileUpload(e, setMaterialsFileName)
+                      }
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="listOfMaterialsUpload"
+                      className="btn btn-alt ml-2"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Upload Data
+                    </label>
                   </Flex>
+                  {materialsFileName && (
+                    <Text className="filename" color="green">
+                      {materialsFileName} has been uploaded
+                    </Text>
+                  )}
                   <hr />
 
                   <Text fontWeight="700" mt="2">
@@ -338,15 +422,39 @@ export default function SessionTable(props: { tableData: any }) {
                   </Text>
 
                   <Flex justifyContent="center" mt="2" mb="2">
-                    <button className="btn btn-green">Download Template</button>
-                    <button className="btn btn-alt ml-2">Upload Data</button>
+                    <button
+                      className="btn btn-green"
+                      onClick={() => downloadTemplate("batchDetails")}
+                    >
+                      Download Template
+                    </button>
+                    <input
+                      type="file"
+                      id="batchDetailsUpload"
+                      onChange={(e) =>
+                        handleFileUpload(e, setBatchDetailsFileName)
+                      }
+                      style={{ display: "none" }}
+                    />
+                    <label
+                      htmlFor="batchDetailsUpload"
+                      className="btn btn-alt ml-2"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Upload Data
+                    </label>
                   </Flex>
+                  {batchDetailsFileName && (
+                    <Text className="filename" color="green">
+                      {batchDetailsFileName} has been uploaded
+                    </Text>
+                  )}
                   <hr />
                 </Box>
               </ModalBody>
 
               <ModalFooter>
-                <button className="btn btn-green">Upload all</button>
+                <button className="btn btn-green">Submit</button>
               </ModalFooter>
             </Box>
           )}

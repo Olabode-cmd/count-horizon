@@ -23,7 +23,7 @@ ReactDOM.render(
             <Route path={`/auth`} component={AuthLayout} />
             <Route path={`/admin`} component={AdminLayout} />
             <Route path={`/rtl`} component={RTLLayout} />
-            {/* <Redirect from="/" to="/admin" /> */}
+            <Redirect from="/" to="/admin" />
             <Route path="/session/:id" component={SessionDetails} />
           </Switch>
         </HashRouter>

@@ -16,7 +16,7 @@ export default function Dashboard(props: { [x: string]: any }) {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   const getRoute = () => {
-    return window.location.pathname !== "/admin/full-screen-maps";
+    return window.location.pathname !== "/count-lead/full-screen-maps";
   };
   const getActiveRoute = (routes: RoutesType[]): string => {
     let activeRoute = "Default Brand Text";
@@ -53,7 +53,7 @@ export default function Dashboard(props: { [x: string]: any }) {
   };
   const getRoutes = (routes: RoutesType[]): any => {
     return routes.map((route: RoutesType, key: any) => {
-      if (route.layout === "/admin") {
+      if (route.layout === "/count-lead") {
         return (
           <Route
             path={route.layout + route.path}
@@ -77,7 +77,7 @@ export default function Dashboard(props: { [x: string]: any }) {
     });
   };
 
-  const userRoles = ["admin"]; // Example roles
+  const userRoles = ["count-lead"]; // Example roles
 
   const filteredRoutes = filterRoutesByRoles(routes, userRoles);
 
@@ -130,7 +130,7 @@ export default function Dashboard(props: { [x: string]: any }) {
             >
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="/" to="/admin/default" />
+                <Redirect from="/" to="/count-lead/default" />
               </Switch>
             </Box>
           ) : null}

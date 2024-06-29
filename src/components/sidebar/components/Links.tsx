@@ -1,36 +1,35 @@
-import { NavLink, useLocation } from 'react-router-dom';
-// chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react';
-import { useRole } from './RoleContext';
+import { NavLink, useLocation } from "react-router-dom";
+import {
+  Box,
+  Flex,
+  HStack,
+  Text,
+  useColorModeValue,
+  Icon,
+} from "@chakra-ui/react";
 
-export function SidebarLinks(props: {
-	routes: RoutesType[];
-}) {
-  //   Chakra color mode
-  let location = useLocation();
-  let activeColor = useColorModeValue("gray.700", "white");
-  let inactiveColor = useColorModeValue(
+export function SidebarLinks({ routes }: { routes: RoutesType[] }) {
+  // Chakra color mode
+  const location = useLocation();
+  const activeColor = useColorModeValue("gray.700", "white");
+  const inactiveColor = useColorModeValue(
     "secondaryGray.600",
     "secondaryGray.600"
   );
-  let activeIcon = "#015e63";
-  let textColor = useColorModeValue("secondaryGray.500", "white");
-  let brandColor = useColorModeValue("brand.500", "brand.400");
-
-  const { routes } = props;
+  const activeIcon = "#015e63";
+  const textColor = useColorModeValue("secondaryGray.500", "white");
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName: string) => {
     return location.pathname.includes(routeName);
   };
 
- 
-
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
   const createLinks = (routes: RoutesType[]) => {
-    return routes.map((route: RoutesType, index: number) => {
+    return routes.map((route, index) => {
       if (
         route.layout === "/admin" ||
+        route.layout === "/count-lead" ||
         route.layout === "/auth" ||
         route.layout === "/rtl"
       ) {
@@ -113,9 +112,10 @@ export function SidebarLinks(props: {
           </NavLink>
         );
       }
+      return null;
     });
   };
-  //  BRAND
+
   return <>{createLinks(routes)}</>;
 }
 

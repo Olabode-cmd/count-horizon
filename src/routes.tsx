@@ -4,31 +4,35 @@ import {
   MdAccessTime,
   MdOutlineFileCopy,
   MdWarehouse,
+  MdLock,
 } from "react-icons/md";
 
+import { RoutesType } from './types'
 // Admin Imports
 import MainDashboard from 'views/admin/default';
 import Warehouse from 'views/admin/warehouse';
 import CountSession from 'views/admin/session';
 import Report from 'views/admin/report';
 
+import CountDashboard from 'views/count-lead/default';
+
 // Auth Imports
 // import SignInCentered from 'views/auth/signIn';
 
 const routes = [
   {
-    name: "Dashboard",
-    layout: "/admin",
     path: "/default",
+    name: "Dashboard",
     icon: (
       <Icon as={MdHome} width="20px" height="20px" mt={1} color="inherit" />
     ),
     component: MainDashboard,
+    layout: "/admin",
+    roles: ["admin"],
   },
   {
-    name: "Count Session",
-    layout: "/admin",
     path: "/session",
+    name: "Count Session",
     icon: (
       <Icon
         as={MdAccessTime}
@@ -39,11 +43,12 @@ const routes = [
       />
     ),
     component: CountSession,
+    layout: "/admin",
+    roles: ["admin"],
   },
   {
-    name: "Warehouse",
-    layout: "/admin",
     path: "/warehouse",
+    name: "Warehouse",
     icon: (
       <Icon
         as={MdWarehouse}
@@ -54,11 +59,12 @@ const routes = [
       />
     ),
     component: Warehouse,
+    layout: "/admin",
+    roles: ["admin"],
   },
   {
-    name: "Report",
-    layout: "/admin",
     path: "/report",
+    name: "Report",
     icon: (
       <Icon
         as={MdOutlineFileCopy}
@@ -69,7 +75,26 @@ const routes = [
       />
     ),
     component: Report,
+    layout: "/admin",
+    roles: ["admin", "user"],
   },
+  {
+    path: "/default",
+    name: "Dashboard",
+    icon: (
+      <Icon as={MdHome} width="20px" height="20px" mt={1} color="inherit" />
+    ),
+    component: CountDashboard,
+    layout: "/count-lead",
+    roles: ["count-lead"],
+  },
+  // {
+  // 	name: 'Sign In',
+  // 	layout: '/auth',
+  // 	path: '/sign-in',
+  // 	icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+  // 	component: SignInCentered
+  // },
   //   {
   //     name: "NFT Marketplace",
   //     layout: "/admin",

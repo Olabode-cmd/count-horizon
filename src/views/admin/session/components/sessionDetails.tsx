@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Box, Text, SimpleGrid } from "@chakra-ui/react";
+import AdminLayout from '../../../../layouts/admin'
 
 const SessionDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,16 +16,18 @@ const SessionDetails = () => {
   };
 
   return (
-    <Box>
-      <Text fontSize="2xl" fontWeight="bold">
-        Session Details: {sessionData.name}
-      </Text>
-      <SimpleGrid columns={2} spacing={10}>
-        <Text>ID: {sessionData.id}</Text>
-        <Text>Date: {sessionData.date}</Text>
-        <Text>Status: {sessionData.status}</Text>
-      </SimpleGrid>
-    </Box>
+    <AdminLayout>
+      <Box>
+        <Text fontSize="2xl" fontWeight="bold">
+          Session Details: {sessionData.name}
+        </Text>
+        <SimpleGrid columns={2} spacing={10}>
+          <Text>ID: {sessionData.id}</Text>
+          <Text>Date: {sessionData.date}</Text>
+          <Text>Status: {sessionData.status}</Text>
+        </SimpleGrid>
+      </Box>
+    </AdminLayout>
   );
 };
 

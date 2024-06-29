@@ -154,7 +154,7 @@ export default function SessionTable(props: { tableData: any }) {
       cell: (info) => (
         <Flex>
           <button
-            className="btn btn-green"
+            className="btn btn-green ml-2"
             onClick={() => {
               history.push(`/session/${info.row.original.id}`);
             }}

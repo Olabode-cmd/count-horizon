@@ -12,7 +12,9 @@ import { RoutesType } from './types'
 import MainDashboard from 'views/admin/default';
 import Warehouse from 'views/admin/warehouse';
 import CountSession from 'views/admin/session';
+import SessionDetails from 'views/admin/session/components/sessionDetails';
 import Report from 'views/admin/report';
+import SessionTest from 'views/admin/session/session-test';
 
 import CountDashboard from 'views/count-lead/default';
 
@@ -29,7 +31,7 @@ const routes = [
     component: MainDashboard,
     layout: "/admin",
     roles: ["admin"],
-  },
+ },
   {
     path: "/session",
     name: "Count Session",
@@ -76,7 +78,7 @@ const routes = [
     ),
     component: Report,
     layout: "/admin",
-    roles: ["admin", "user"],
+    roles: ["admin"],
   },
   {
     path: "/default",

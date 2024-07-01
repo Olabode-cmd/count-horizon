@@ -3,7 +3,7 @@
   --color-green: #015e63;
   --color-green-light: #0db6be;
 
-  --color-to-test: #1156d6;
+  --color-to-test: #f7d5d5;
 
   --color-orange: #f3bb01;
   --color-grey: #cecac1;
@@ -57,6 +57,7 @@ option {
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
+  padding-left: 0 !important;
 }
 
 .ml-2 {
@@ -68,6 +69,15 @@ option {
 .mb-4 {
   margin-bottom: 20px;
 }
+.mb-2 {
+  margin-bottom: 10px;
+}
+.mt-2 {
+  margin-top: 10px;
+}
 .text-center {
   text-align: center !important;
+}
+.w-100 {
+  width: 100%;
 }

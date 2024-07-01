@@ -2,16 +2,17 @@ import {
   Flex,
   Box,
   Table,
-  Checkbox,
-  SimpleGrid,
   Tag,
   Tbody,
   Td,
+  Input,
   Text,
   Th,
   Thead,
+  SimpleGrid,
   Tr,
   useColorModeValue,
+  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -19,8 +20,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
-  useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
 // import Link from "next/link";
@@ -38,49 +37,23 @@ import {
 import Card from "components/card/Card";
 
 type RowObj = {
-  whNumber: string;
-  name: string;
-  location: string;
-  status: string;
-  responsiblePerson: string;
-  logisticAreaCode: string;
+  id: number;
+  productId: string;
+  itemName: string;
+  batch: string;
+  logisticArea: string;
+  expectedQuantity: number;
+  countedQuantity: number;
+  variance: number;
+  date: string;
+  discrepancyStatus: string;
   action: any;
-  description: string;
-  plant: string;
-  storageLocation: string;
-  address: string;
-  type: string;
-  storageType: string;
-  storageTypeDes: string;
-  storageTypeRole: string;
-  placementStrategy: string;
-  removalStrategy: string;
-  capacityCheck: string;
-  weightCheck: string;
-  hazardousIndicator: string;
-  storageSection: string;
-  storageSectionDes: string;
-  sectionArea: string;
-  sectionVolume: string;
-  tempControl: string;
-  storageBin: string;
-  storageBinDes: string;
-  binType: string;
-  binCapacity: string;
-  binWeightCapacity: string;
-  binLength: string;
-  binWidth: string;
-  binHeight: string;
-  occupancyStatus: string;
-  binHazardousIndicator: string;
-  configurationDate: string;
-  lastUpdatedDate: string;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
 
 // const columns = columnsDataCheck;
-export default function WarehouseTable(props: { tableData: any }) {
+export default function ReconTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -90,8 +63,8 @@ export default function WarehouseTable(props: { tableData: any }) {
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
 
   const columns = [
-    columnHelper.accessor("whNumber", {
-      id: "whNumber",
+    columnHelper.accessor("id", {
+      id: "id",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -99,7 +72,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          NUMBER
+          ID
         </Text>
       ),
       cell: (info) => (
@@ -108,8 +81,8 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("name", {
-      id: "name",
+    columnHelper.accessor("itemName", {
+      id: "itemName",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -117,7 +90,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          NAME
+          ITEM
         </Text>
       ),
       cell: (info) => (
@@ -126,8 +99,8 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("location", {
-      id: "location",
+    columnHelper.accessor("batch", {
+      id: "batch",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -135,7 +108,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          ADDRESS
+          BATCH
         </Text>
       ),
       cell: (info) => (
@@ -144,8 +117,8 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("logisticAreaCode", {
-      id: "logisticAreaCode",
+    columnHelper.accessor("logisticArea", {
+      id: "logisticArea",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -153,7 +126,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          AREA CODES
+          LOGISTIC AREA
         </Text>
       ),
       cell: (info) => (
@@ -162,8 +135,8 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("plant", {
-      id: "plant",
+    columnHelper.accessor("expectedQuantity", {
+      id: "expectedQuantity",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -171,7 +144,7 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          PLANT
+          EXPECTED
         </Text>
       ),
       cell: (info) => (
@@ -180,8 +153,8 @@ export default function WarehouseTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("status", {
-      id: "status",
+    columnHelper.accessor("countedQuantity", {
+      id: "countedQuantity",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -189,13 +162,64 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          STATUS
+          COUNTED QUANTITY
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor("variance", {
+      id: "variance",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          VARIANCE
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor("discrepancyStatus", {
+      id: "discrepancyStatus",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          DISCREPANCY
         </Text>
       ),
       cell: (info) => {
         const status = info.getValue();
-        const bgColor = status === "Active" ? "#e6ffe7" : "#ffe6e6";
-        const textColor = status === "Active" ? "#0ce917" : "#e91717";
+
+        let bgColor, textColor;
+
+        switch (status) {
+          case "Error":
+            bgColor = "#f7d5d5";
+            textColor = "#d61111";
+            break;
+          case "Null":
+            bgColor = "#e6ffe7";
+            textColor = "#0ce917";
+            break;
+          default:
+            bgColor = "#ffffff";
+            textColor = "#000000";
+            break;
+        }
 
         return (
           <Tag bg={bgColor} color={textColor} fontSize="sm" fontWeight="500">
@@ -203,24 +227,6 @@ export default function WarehouseTable(props: { tableData: any }) {
           </Tag>
         );
       },
-    }),
-    columnHelper.accessor("responsiblePerson", {
-      id: "responsiblePerson",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          RESPONSIBLE PERSON
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
     }),
     columnHelper.accessor("action", {
       id: "action",
@@ -277,9 +283,11 @@ export default function WarehouseTable(props: { tableData: any }) {
           fontWeight="700"
           lineHeight="100%"
         >
-          Warehouse List
+          Product Data
         </Text>
-        {/* <Menu /> */}
+
+
+        <button className='btn btn-green'>Generate report</button>
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
@@ -345,61 +353,45 @@ export default function WarehouseTable(props: { tableData: any }) {
           </Tbody>
         </Table>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} size="5xl">
+
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Warehouse Details</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {selectedRow && (
-              <Box>
-                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
-                  <Text>
-                    <strong>Warehouse Number:</strong> {selectedRow.whNumber}
-                  </Text>
-                  <Text>
-                    <strong>Description:</strong> {selectedRow.description}
-                  </Text>
-                  <Text>
-                    <strong>Storage Location:</strong>{" "}
-                    {selectedRow.storageLocation}
-                  </Text>
-                </SimpleGrid>
-                <hr />
-                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
-                  <Text>
-                    <strong>Warehouse Address:</strong> {selectedRow.location}
-                  </Text>
-                  <Text>
-                    <strong>Plant:</strong> {selectedRow.plant}
-                  </Text>
-                  <Text>
-                    <strong>Responsible Person:</strong>{" "}
-                    {selectedRow.responsiblePerson}
-                  </Text>
-                </SimpleGrid>
-                <hr />
-                <SimpleGrid columns={{ base: 1, md: 3 }} mb="3" mt="3">
-                  <Text>
-                    <strong>Logistics Area Codes:</strong>{" "}
-                    {selectedRow.logisticAreaCode}
-                  </Text>
-                </SimpleGrid>
-                <hr />
+          {selectedRow && (
+            <Box>
+              <ModalHeader>Config data: {selectedRow.itemName}</ModalHeader>
+              <ModalCloseButton />
 
-                <Text mt="3">
-                  <strong>All Area Codes:</strong> LA001, LA002, LA003, LA004,
-                  LA005, LA006, LA007, LA008, LA009, LA0010, LA0011, LA0012,
-                  LA0013, LA0014, LA0015, LA0016, LA0017, LA0018, LA0019, LA0020
-                </Text>
-              </Box>
-            )}
-          </ModalBody>
-          <ModalFooter>
-            <button className="btn btn-green" onClick={onClose}>
-              Close
-            </button>
-          </ModalFooter>
+              <ModalBody>
+                <Text color='red.600' mb='5'>Discrepancy error in quantity</Text>
+                <SimpleGrid columns={2} spacing={3}>
+                  <Box>
+                    <Text>Product ID</Text>
+                    <Input defaultValue={selectedRow.productId} />
+                  </Box>
+
+                  <Box>
+                    <Text>Logistic Area</Text>
+                    <Input defaultValue={selectedRow.logisticArea} />
+                  </Box>
+
+                  <Box>
+                    <Text>Expected Quantity</Text>
+                    <Input defaultValue={selectedRow.expectedQuantity} />
+                  </Box>
+
+                  <Box>
+                    <Text>Counted Quantity</Text>
+                    <Input defaultValue={selectedRow.countedQuantity} />
+                  </Box>
+                </SimpleGrid>
+              </ModalBody>
+
+              <ModalFooter>
+                <button className="btn btn-green">Update</button>
+              </ModalFooter>
+            </Box>
+          )}
         </ModalContent>
       </Modal>
     </Card>

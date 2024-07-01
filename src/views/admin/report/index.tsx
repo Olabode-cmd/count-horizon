@@ -8,7 +8,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import Card from '../../../components/card/Card'
+import Card from '../../../components/card/Card';
 import ReportTable from "./components/ReportTable";
 import tableReport from "./variables/tableReport";
 

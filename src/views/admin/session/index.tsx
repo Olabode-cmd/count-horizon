@@ -19,7 +19,6 @@ import tableSession from "./variables/tableSessions";
 export default function CountSession() {
   // Chakra Color Mode - 015e63
   //   const brandColor = useColorModeValue("brand.500", "white");
-  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -37,13 +36,8 @@ export default function CountSession() {
             <ModalBody>
               {/* <Lorem count={2} /> */}
               <Input placeholder="Session name" mb="4" />
-
-              <Text mb='3' fontWeight='bold'>Count Session Period</Text>
-              <Text>From:</Text>
+              <Text>Session start date:</Text>
               <Input type="date" mb="2" />
-
-              <Text>To:</Text>
-              <Input type="date" mb="4" />
             </ModalBody>
 
             <ModalFooter>

@@ -5,6 +5,7 @@ import {
   MdOutlineFileCopy,
   MdWarehouse,
   MdLock,
+  MdBookmarks,
 } from "react-icons/md";
 
 import { RoutesType } from './types'
@@ -14,7 +15,7 @@ import Warehouse from 'views/admin/warehouse';
 import CountSession from 'views/admin/session';
 import SessionDetails from 'views/admin/session/components/sessionDetails';
 import Report from 'views/admin/report';
-import SessionTest from 'views/admin/session/session-test';
+import Reconciliation from 'views/admin/reconciliation';
 
 import CountDashboard from 'views/count-lead/default';
 
@@ -31,7 +32,7 @@ const routes = [
     component: MainDashboard,
     layout: "/admin",
     roles: ["admin"],
- },
+  },
   {
     path: "/session",
     name: "Count Session",
@@ -45,6 +46,22 @@ const routes = [
       />
     ),
     component: CountSession,
+    layout: "/admin",
+    roles: ["admin"],
+  },
+  {
+    path: "/reconciliation",
+    name: "Reconciliation",
+    icon: (
+      <Icon
+        as={MdBookmarks}
+        width="20px"
+        height="20px"
+        mt={1}
+        color="inherit"
+      />
+    ),
+    component: Reconciliation,
     layout: "/admin",
     roles: ["admin"],
   },

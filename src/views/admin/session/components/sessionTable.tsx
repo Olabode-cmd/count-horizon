@@ -55,10 +55,17 @@ export default function SessionTable(props: { tableData: any }) {
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
   const history = useHistory();
-  const { isOpen: isOpenViewModal, onOpen: onOpenViewModal, onClose: onCloseViewModal } = useDisclosure();
-  const { isOpen: isOpenConfigModal, onOpen: onOpenConfigModal, onClose: onCloseConfigModal } = useDisclosure();
+  const {
+    isOpen: isOpenViewModal,
+    onOpen: onOpenViewModal,
+    onClose: onCloseViewModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenConfigModal,
+    onOpen: onOpenConfigModal,
+    onClose: onCloseConfigModal,
+  } = useDisclosure();
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
-  
 
   const columns = [
     columnHelper.accessor("id", {
@@ -111,8 +118,31 @@ export default function SessionTable(props: { tableData: any }) {
       ),
       cell: (info) => {
         const status = info.getValue();
-        const bgColor = status === "Upcoming" ? "#cbdaf5" : "#e6ffe7";
-        const textColor = status === "Upcoming" ? "#1156d6" : "#0ce917";
+
+        let bgColor, textColor;
+
+        switch (status) {
+          case "Upcoming":
+            bgColor = "#cbdaf5";
+            textColor = "#1156d6";
+            break;
+          case "Ongoing":
+            bgColor = "#d3d3d3";
+            textColor = "#000000";
+            break;
+          case "Closed":
+            bgColor = "#ffe6e6";
+            textColor = "#ff0000";
+            break;
+          case "Completed":
+            bgColor = "#e6ffe7";
+            textColor = "#0ce917";
+            break;
+          default:
+            bgColor = "#ffffff";
+            textColor = "#000000";
+            break;
+        }
 
         return (
           <Tag bg={bgColor} color={textColor} fontSize="sm" fontWeight="500">
@@ -168,7 +198,7 @@ export default function SessionTable(props: { tableData: any }) {
               onOpenConfigModal();
             }}
           >
-            Config data
+            Config
           </button>
         </Flex>
       ),
@@ -190,9 +220,7 @@ export default function SessionTable(props: { tableData: any }) {
   const [productListFileName, setProductListFileName] = useState<string | null>(
     null
   );
-  const [materialsFileName, setMaterialsFileName] = useState<string | null>(
-    null
-  );
+  const [stockFileName, setStockFileName] = useState<string | null>(null);
   const [batchDetailsFileName, setBatchDetailsFileName] = useState<
     string | null
   >(null);
@@ -200,7 +228,7 @@ export default function SessionTable(props: { tableData: any }) {
   const downloadTemplate = (templateName: string) => {
     const templates: { [key: string]: string } = {
       productList: "/ProductList.xlsx",
-      listOfMaterials: "/MaterialList.xlsx",
+      StockPosition: "/StockPosition.xlsx",
       batchDetails: "/BatchDetails.xlsx",
     };
 
@@ -384,35 +412,33 @@ export default function SessionTable(props: { tableData: any }) {
                   <hr />
 
                   <Text fontWeight="700" mt="2">
-                    List of materials
+                    Stock position
                   </Text>
 
                   <Flex justifyContent="center" mt="2" mb="2">
                     <button
                       className="btn btn-green"
-                      onClick={() => downloadTemplate("listOfMaterials")}
+                      onClick={() => downloadTemplate("StockPosition")}
                     >
                       Download Template
                     </button>
                     <input
                       type="file"
-                      id="listOfMaterialsUpload"
-                      onChange={(e) =>
-                        handleFileUpload(e, setMaterialsFileName)
-                      }
+                      id="stockPositionUpload"
+                      onChange={(e) => handleFileUpload(e, setStockFileName)}
                       style={{ display: "none" }}
                     />
                     <label
-                      htmlFor="listOfMaterialsUpload"
+                      htmlFor="stockPositionUpload"
                       className="btn btn-alt ml-2"
                       style={{ cursor: "pointer" }}
                     >
                       Upload Data
                     </label>
                   </Flex>
-                  {materialsFileName && (
+                  {stockFileName && (
                     <Text className="filename" color="green">
-                      {materialsFileName} has been uploaded
+                      {stockFileName} has been uploaded
                     </Text>
                   )}
                   <hr />

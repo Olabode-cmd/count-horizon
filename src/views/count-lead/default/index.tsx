@@ -8,6 +8,9 @@ import {
   MdOutlineCardGiftcard,
 } from "react-icons/md";
 
+import SessionTable from "./components/sessionTable";
+import tableSession from "./variables/tableSessions";
+
 export default function CountDashboard() {
   // Chakra Color Mode - 015e63
   //   const brandColor = useColorModeValue("brand.500", "white");
@@ -15,6 +18,10 @@ export default function CountDashboard() {
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Text>Count Lead Test Dashboard</Text>
+
+      <Box mt="3">
+        <SessionTable tableData={tableSession} />
+      </Box>
     </Box>
   );
 }

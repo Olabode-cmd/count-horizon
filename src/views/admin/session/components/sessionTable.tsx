@@ -20,6 +20,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import * as React from "react";
 import { useState } from "react";
@@ -35,13 +36,13 @@ import {
 
 // Custom components
 import Card from "components/card/Card";
-import { info } from "console";
 
 type RowObj = {
   id: number;
   name: string;
   status: string;
   date: string;
+  closeSession: string;
   action: any;
 };
 
@@ -66,6 +67,19 @@ export default function SessionTable(props: { tableData: any }) {
     onClose: onCloseConfigModal,
   } = useDisclosure();
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
+
+  const [isClosed, setIsClosed] = useState(false);
+  const toast = useToast();
+
+  const handleToggle = () => {
+    setIsClosed(!isClosed);
+    toast({
+      title: isClosed ? "Session reopened." : "Session closed.",
+      status: "success",
+      duration: 6000,
+      isClosable: true,
+    });
+  };
 
   const columns = [
     columnHelper.accessor("id", {
@@ -167,6 +181,29 @@ export default function SessionTable(props: { tableData: any }) {
         <Text color={textColor} fontSize="sm" fontWeight="700">
           {info.getValue()}
         </Text>
+      ),
+    }),
+    columnHelper.accessor("closeSession", {
+      id: "closeSession",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          CLOSE SESSION
+        </Text>
+      ),
+      cell: () => (
+        <Button
+          colorScheme="teal"
+          size="xs"
+          variant="outline"
+          onClick={handleToggle}
+        >
+          {isClosed ? "Reopen Session" : "Close Session"}
+        </Button>
       ),
     }),
     columnHelper.accessor("action", {

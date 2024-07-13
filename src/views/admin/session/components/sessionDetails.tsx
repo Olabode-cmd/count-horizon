@@ -17,6 +17,11 @@ import {
   Select,
   ModalBody,
   ModalFooter,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -87,32 +92,44 @@ const SessionDetails: React.FC = () => {
       <Card mt="4">
         <Flex alignItems="center" mt="5">
           <Text fontSize="xl" fontWeight="bold">
-            Create Subsessions
+            Subsessions -
           </Text>
           <button className="btn btn-green ml-2" onClick={addSession}>
             Add warehouse column
           </button>
         </Flex>
 
-        {sessions.map((_, index) => (
-          <Box key={index} position="relative" mt="4">
-            <Text>Warehouse session {index + 1}</Text>
-            <SubSession />
-            {index > 0 && (
-              <IconButton
-                aria-label="Remove session"
-                icon={<CloseIcon />}
-                size="sm"
-                position="absolute"
-                top="0"
-                right="0"
-                onClick={() => removeSession(index)}
-              />
-            )}
-          </Box>
-        ))}
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+          {sessions.map((_, index) => (
+            <Box>
+              <Flex
+                key={index}
+                position="relative"
+                mt="4"
+                mb="3"
+                alignItems="center"
+              >
+                <Text mr="3">Warehouse session {index + 1}:</Text>
+                <SubSession />
+                {index > 0 && (
+                  <IconButton
+                    aria-label="Remove session"
+                    icon={<CloseIcon />}
+                    size="sm"
+                    position="absolute"
+                    top="0"
+                    right="0"
+                    onClick={() => removeSession(index)}
+                  />
+                )}
+              </Flex>
 
-        <Flex>
+              <hr />
+            </Box>
+          ))}
+        </SimpleGrid>
+
+        <Flex mt="3">
           <button className="btn btn-alt" onClick={onOpenEditModal}>
             Edit Subsessions
           </button>
@@ -120,173 +137,167 @@ const SessionDetails: React.FC = () => {
         </Flex>
       </Card>
 
-      <Card mt="3">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Box>
-            <Text fontSize="xl" fontWeight="bold">
-              Data Entry
-            </Text>
-            <Text>
-              (only visible when stock session status says ongoing, will work on
-              functionality later)
-            </Text>
-          </Box>
-
-          <button className="btn btn-green">Use Barcode</button>
-        </Flex>
-
-        <SimpleGrid columns={2} spacing={3} mt="3">
-          <Box>
-            <Text>Product ID</Text>
-            <Input />
-          </Box>
-          <Box>
-            <Text>Batch Number</Text>
-            <Input />
-          </Box>
-          <Box>
-            <Text>Logistic Area</Text>
-            <Input />
-          </Box>
-        </SimpleGrid>
-
-        <Flex mt="3">
-          <button className="btn btn-green">Enter</button>
-          <button className="btn btn-green ml-2" onClick={handleClick}>Start Reconciliation</button>
-        </Flex>
-      </Card>
-
-      <Modal isOpen={isOpenEditModal} onClose={onCloseEditModal} size="5xl">
+      <Modal isOpen={isOpenEditModal} onClose={onCloseEditModal} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Edit Subsessions</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SimpleGrid columns={2} spacing={3}>
-              <Box>
-                <Text fontSize="xl" fontWeight="bold">
-                  Warehouse 1:
-                </Text>
+            <Box>
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left">
+                        <Text fontSize="xl" fontWeight="bold">
+                          Warehouse 1:
+                        </Text>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Box>
+                      <SimpleGrid columns={2} spacing={3} mb="3">
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Warehouse
+                          </Text>
+                          <Select>
+                            <option value="option1" selected>
+                              Ojo Major Stores
+                            </option>
+                            <option value="option2">Ikeja Stores</option>
+                            <option value="option3">
+                              Igando Warehouse Branch
+                            </option>
+                          </Select>
+                        </Box>
 
-                <SimpleGrid columns={2} spacing={3} mb="3">
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Warehouse
-                    </Text>
-                    <Select>
-                      <option value="option1" selected>
-                        Ojo Major Stores
-                      </option>
-                      <option value="option2">Ikeja Stores</option>
-                      <option value="option3">Igando Warehouse Branch</option>
-                    </Select>
-                  </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Count Lead
+                          </Text>
+                          <Select>
+                            <option value="option1">Mr John</option>
+                            <option value="option2">Jane Doe</option>
+                            <option value="option3" selected>
+                              Emily Doe
+                            </option>
+                          </Select>
+                        </Box>
 
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Count Lead
-                    </Text>
-                    <Select>
-                      <option value="option1">Mr John</option>
-                      <option value="option2">Jane Doe</option>
-                      <option value="option3" selected>
-                        Emily Doe
-                      </option>
-                    </Select>
-                  </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Date
+                          </Text>
+                          <Input type="date" defaultValue="2024-06-24" />
+                        </Box>
 
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Date
-                    </Text>
-                    <Input type="date" defaultValue="2024-06-24" />
-                  </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Product type
+                          </Text>
+                          <Select>
+                            <option value="option1">Raw materials</option>
+                            <option value="option2" selected>
+                              Finished goods
+                            </option>
+                          </Select>
+                        </Box>
 
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Time
-                    </Text>
-                    <Input type="time" defaultValue="14:30" />
-                  </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Count Parameter
+                          </Text>
+                          <Select>
+                            <option value="option1">Material Number</option>
+                            <option value="option2" selected>
+                              Description
+                            </option>
+                          </Select>
+                        </Box>
+                      </SimpleGrid>
+                    </Box>
+                  </AccordionPanel>
+                </AccordionItem>
 
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Product type
-                    </Text>
-                    <Select>
-                      <option value="option1">Raw materials</option>
-                      <option value="option2" selected>
-                        Finished goods
-                      </option>
-                    </Select>
-                  </Box>
-                </SimpleGrid>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left">
+                        <Text fontSize="xl" fontWeight="bold">
+                          Warehouse 2:
+                        </Text>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Box>
+                      <SimpleGrid columns={2} spacing={3} mb="3">
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Warehouse
+                          </Text>
+                          <Select>
+                            <option value="option1">Ojo Major Stores</option>
+                            <option value="option2">Ikeja Stores</option>
+                            <option value="option3" selected>
+                              Igando Warehouse Branch
+                            </option>
+                          </Select>
+                        </Box>
 
-                <hr />
-              </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Count Lead
+                          </Text>
+                          <Select>
+                            <option value="option1">Mr John</option>
+                            <option value="option2" selected>
+                              Jane Doe
+                            </option>
+                            <option value="option3">Emily Doe</option>
+                          </Select>
+                        </Box>
 
-              <Box>
-                <Text fontSize="xl" fontWeight="bold">
-                  Warehouse 2:
-                </Text>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Date
+                          </Text>
+                          <Input type="date" defaultValue="2024-06-24" />
+                        </Box>
 
-                <SimpleGrid columns={2} spacing={3} mb="3">
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Warehouse
-                    </Text>
-                    <Select>
-                      <option value="option1">Ojo Major Stores</option>
-                      <option value="option2">Ikeja Stores</option>
-                      <option value="option3" selected>
-                        Igando Warehouse Branch
-                      </option>
-                    </Select>
-                  </Box>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Product type
+                          </Text>
+                          <Select>
+                            <option value="option1">Raw materials</option>
+                            <option value="option2" selected>
+                              Finished goods
+                            </option>
+                          </Select>
+                        </Box>
 
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Count Lead
-                    </Text>
-                    <Select>
-                      <option value="option1">Mr John</option>
-                      <option value="option2" selected>
-                        Jane Doe
-                      </option>
-                      <option value="option3">Emily Doe</option>
-                    </Select>
-                  </Box>
-
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Date
-                    </Text>
-                    <Input type="date" defaultValue="2024-06-24" />
-                  </Box>
-
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Time
-                    </Text>
-                    <Input type="time" defaultValue="14:30" />
-                  </Box>
-
-                  <Box>
-                    <Text mt="2" mb="1">
-                      Product type
-                    </Text>
-                    <Select>
-                      <option value="option1">Raw materials</option>
-                      <option value="option2" selected>
-                        Finished goods
-                      </option>
-                    </Select>
-                  </Box>
-                </SimpleGrid>
-
-                <hr />
-              </Box>
-            </SimpleGrid>
+                        <Box>
+                          <Text mt="2" mb="1">
+                            Count Parameter
+                          </Text>
+                          <Select>
+                            <option value="option1" selected>
+                              Material Number
+                            </option>
+                            <option value="option2">Description</option>
+                          </Select>
+                        </Box>
+                      </SimpleGrid>
+                    </Box>
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            </Box>
           </ModalBody>
 
           <ModalFooter>

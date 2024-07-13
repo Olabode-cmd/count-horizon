@@ -6,6 +6,7 @@ import {
   MdWarehouse,
   MdLock,
   MdBookmarks,
+  MdDataSaverOff,
 } from "react-icons/md";
 
 import { RoutesType } from './types'
@@ -18,6 +19,8 @@ import Report from 'views/admin/report';
 import Reconciliation from 'views/admin/reconciliation';
 
 import CountDashboard from 'views/count-lead/default';
+import CountDataEntry from 'views/count-lead/data-entry';
+import CountReconciliation from 'views/count-lead/reconciliation';
 
 // Auth Imports
 // import SignInCentered from 'views/auth/signIn';
@@ -49,22 +52,22 @@ const routes = [
     layout: "/admin",
     roles: ["admin"],
   },
-  {
-    path: "/reconciliation",
-    name: "Reconciliation",
-    icon: (
-      <Icon
-        as={MdBookmarks}
-        width="20px"
-        height="20px"
-        mt={1}
-        color="inherit"
-      />
-    ),
-    component: Reconciliation,
-    layout: "/admin",
-    roles: ["admin"],
-  },
+  // {
+  //   path: "/reconciliation",
+  //   name: "Reconciliation",
+  //   icon: (
+  //     <Icon
+  //       as={MdBookmarks}
+  //       width="20px"
+  //       height="20px"
+  //       mt={1}
+  //       color="inherit"
+  //     />
+  //   ),
+  //   component: Reconciliation,
+  //   layout: "/admin",
+  //   roles: ["admin"],
+  // },
   {
     path: "/warehouse",
     name: "Warehouse",
@@ -104,6 +107,38 @@ const routes = [
       <Icon as={MdHome} width="20px" height="20px" mt={1} color="inherit" />
     ),
     component: CountDashboard,
+    layout: "/count-lead",
+    roles: ["count-lead"],
+  },
+  {
+    path: "/data-entry",
+    name: "Data Entry",
+    icon: (
+      <Icon
+        as={MdDataSaverOff}
+        width="20px"
+        height="20px"
+        mt={1}
+        color="inherit"
+      />
+    ),
+    component: CountDataEntry,
+    layout: "/count-lead",
+    roles: ["count-lead"],
+  },
+  {
+    path: "/reconciliation",
+    name: "Reconciliation",
+    icon: (
+      <Icon
+        as={MdBookmarks}
+        width="20px"
+        height="20px"
+        mt={1}
+        color="inherit"
+      />
+    ),
+    component: CountReconciliation,
     layout: "/count-lead",
     roles: ["count-lead"],
   },

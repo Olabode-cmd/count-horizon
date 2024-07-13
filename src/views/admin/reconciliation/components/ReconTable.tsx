@@ -2,24 +2,15 @@ import {
   Flex,
   Box,
   Table,
-  Tag,
   Tbody,
   Td,
-  Input,
   Text,
   Th,
   Thead,
-  SimpleGrid,
   Tr,
   useColorModeValue,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Checkbox,
 } from "@chakra-ui/react";
 import * as React from "react";
 // import Link from "next/link";
@@ -37,17 +28,15 @@ import {
 import Card from "components/card/Card";
 
 type RowObj = {
-  id: number;
+  warehouse: string;
   productId: string;
-  itemName: string;
-  batch: string;
-  logisticArea: string;
-  expectedQuantity: number;
+  itemDescription: string;
+  uom: string;
+  ctnsSize: string;
+  costPrice: string;
   countedQuantity: number;
+  stockPositionQty: number;
   variance: number;
-  date: string;
-  discrepancyStatus: string;
-  action: any;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -63,8 +52,26 @@ export default function ReconTable(props: { tableData: any }) {
   const [selectedRow, setSelectedRow] = React.useState<RowObj | null>(null);
 
   const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
+    columnHelper.accessor("warehouse", {
+      id: "warehouse",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          WAREHOUSE
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
+    columnHelper.accessor("productId", {
+      id: "productId",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -81,8 +88,8 @@ export default function ReconTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("itemName", {
-      id: "itemName",
+    columnHelper.accessor("itemDescription", {
+      id: "itemDescription",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -90,7 +97,7 @@ export default function ReconTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          ITEM
+          DESCRIPTION
         </Text>
       ),
       cell: (info) => (
@@ -99,8 +106,8 @@ export default function ReconTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("batch", {
-      id: "batch",
+    columnHelper.accessor("uom", {
+      id: "uom",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -108,7 +115,7 @@ export default function ReconTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          BATCH
+          UOM
         </Text>
       ),
       cell: (info) => (
@@ -117,8 +124,8 @@ export default function ReconTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("logisticArea", {
-      id: "logisticArea",
+    columnHelper.accessor("ctnsSize", {
+      id: "ctnsSize",
       header: () => (
         <Text
           justifyContent="space-between"
@@ -126,25 +133,7 @@ export default function ReconTable(props: { tableData: any }) {
           fontSize={{ sm: "10px", lg: "12px" }}
           color="gray.400"
         >
-          LOGISTIC AREA
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
-    columnHelper.accessor("expectedQuantity", {
-      id: "expectedQuantity",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          EXPECTED
+          CTNS
         </Text>
       ),
       cell: (info) => (
@@ -171,6 +160,24 @@ export default function ReconTable(props: { tableData: any }) {
         </Text>
       ),
     }),
+    columnHelper.accessor("stockPositionQty", {
+      id: "stockPositionQty",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          VARIANCE
+        </Text>
+      ),
+      cell: (info) => (
+        <Text color={textColor} fontSize="sm" fontWeight="700">
+          {info.getValue()}
+        </Text>
+      ),
+    }),
     columnHelper.accessor("variance", {
       id: "variance",
       header: () => (
@@ -189,71 +196,33 @@ export default function ReconTable(props: { tableData: any }) {
         </Text>
       ),
     }),
-    columnHelper.accessor("discrepancyStatus", {
-      id: "discrepancyStatus",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          DISCREPANCY
-        </Text>
-      ),
-      cell: (info) => {
-        const status = info.getValue();
 
-        let bgColor, textColor;
-
-        switch (status) {
-          case "Error":
-            bgColor = "#f7d5d5";
-            textColor = "#d61111";
-            break;
-          case "Null":
-            bgColor = "#e6ffe7";
-            textColor = "#0ce917";
-            break;
-          default:
-            bgColor = "#ffffff";
-            textColor = "#000000";
-            break;
-        }
-
-        return (
-          <Tag bg={bgColor} color={textColor} fontSize="sm" fontWeight="500">
-            {status}
-          </Tag>
-        );
-      },
-    }),
-    columnHelper.accessor("action", {
-      id: "action",
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: "10px", lg: "12px" }}
-          color="gray.400"
-        >
-          ACTION
-        </Text>
-      ),
-      cell: (info) => (
-        <Box>
-          <button
-            className="btn btn-green"
-            onClick={() => {
-              setSelectedRow(info.row.original);
-              onOpen();
-            }}
-          >
-            View
-          </button>
-        </Box>
-      ),
-    }),
+    // columnHelper.accessor("action", {
+    //   id: "action",
+    //   header: () => (
+    //     <Text
+    //       justifyContent="space-between"
+    //       align="center"
+    //       fontSize={{ sm: "10px", lg: "12px" }}
+    //       color="gray.400"
+    //     >
+    //       ACTION
+    //     </Text>
+    //   ),
+    //   cell: (info) => (
+    //     <Box>
+    //       <button
+    //         className="btn btn-green"
+    //         onClick={() => {
+    //           setSelectedRow(info.row.original);
+    //           onOpen();
+    //         }}
+    //       >
+    //         View
+    //       </button>
+    //     </Box>
+    //   ),
+    // }),
   ];
 
   const [data, setData] = React.useState(() => [...defaultData]);
@@ -283,11 +252,15 @@ export default function ReconTable(props: { tableData: any }) {
           fontWeight="700"
           lineHeight="100%"
         >
-          Product Data
+          Product Reconciliation
         </Text>
 
+        <button className="btn btn-green">Generate report</button>
+      </Flex>
 
-        <button className='btn btn-green'>Generate report</button>
+      <Flex px='25px'>
+        <Checkbox>With Batch details</Checkbox>
+        <Checkbox ml='4'>With Logistics</Checkbox>
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
@@ -354,7 +327,7 @@ export default function ReconTable(props: { tableData: any }) {
         </Table>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      {/* <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           {selectedRow && (
@@ -393,7 +366,7 @@ export default function ReconTable(props: { tableData: any }) {
             </Box>
           )}
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </Card>
   );
 }

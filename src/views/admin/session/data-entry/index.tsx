@@ -28,7 +28,7 @@ export default function DataEntry() {
     const history = useHistory();
 
     const handleClick = () => {
-      history.push("/admin/reconciliation");
+      history.push("/session/reconciliation");
     };
 
     const descriptions: Description[] = [
@@ -55,7 +55,10 @@ export default function DataEntry() {
             </Text>
           </Box>
 
-          <button className="btn btn-green">Use Barcode</button>
+          {/* <button className="btn btn-green">Use Barcode</button> */}
+          <button className="btn btn-green ml-2" onClick={handleClick}>
+            Start Reconciliation
+          </button>
         </Flex>
 
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={3} mt="3">
@@ -128,9 +131,6 @@ export default function DataEntry() {
 
         <Flex mt="3">
           <button className="btn btn-green">Enter</button>
-          <button className="btn btn-green ml-2" onClick={handleClick}>
-            Start Reconciliation
-          </button>
         </Flex>
       </Card>
     </Box>

@@ -7,6 +7,7 @@ import AuthLayout from "./layouts/auth";
 import AdminLayout from "./layouts/admin";
 import CountLeadLayout from "./layouts/count-lead";
 import SessionDetails from "views/admin/session/components/sessionDetails";
+import Reconciliation from "views/admin/reconciliation";
 import DataEntry from "views/admin/session/data-entry";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme/theme";
@@ -23,6 +24,7 @@ ReactDOM.render(
             {/* Adding routes for session table and details */}
 
             <Route path={`/session/data-entry`} render={() => <DataEntry />} />
+            <Route path={`/session/reconciliation`} render={() => <Reconciliation />} />
             <Route path={`/session/:id`} render={() => <SessionDetails />} />
             <Redirect from="/" to="/admin" />
           </Switch>

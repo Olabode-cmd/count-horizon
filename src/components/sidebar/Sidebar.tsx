@@ -7,6 +7,7 @@ import {
 	Drawer,
 	DrawerBody,
 	Icon,
+	Text,
 	useColorModeValue,
 	DrawerOverlay,
 	useDisclosure,
@@ -31,39 +32,38 @@ function Sidebar(props: { routes: RoutesType[]; [x: string]: any }) {
 
 	// SIDEBAR
 	return (
-		<Box display={{ sm: 'none', xl: 'block' }} position='fixed' minH='100%'>
-			<Box
-				bg={sidebarBg}
-				transition={variantChange}
-				w='300px'
-				h='100vh'
-				m={sidebarMargins}
-				minH='100%'
-				overflowX='hidden'
-				boxShadow={shadow}>
-				<Scrollbars
-					autoHide
-					renderTrackVertical={renderTrack}
-					renderThumbVertical={renderThumb}
-					renderView={renderView}>
-					<Content routes={routes} />
-				</Scrollbars>
-			</Box>
-		</Box>
-	);
+    <Box display={{ sm: "none", xl: "block" }} position="fixed" minH="100%">
+      <Box
+        bg={sidebarBg}
+        transition={variantChange}
+        w="300px"
+        h="100vh"
+        m={sidebarMargins}
+        minH="100%"
+        overflowX="hidden"
+        boxShadow={shadow}
+      >
+        <Scrollbars
+          autoHide
+          renderTrackVertical={renderTrack}
+          renderThumbVertical={renderThumb}
+          renderView={renderView}
+        >
+          <Content routes={routes} />
+        </Scrollbars>
+      </Box>
+    </Box>
+  );
 }
 
 // FUNCTIONS
 export function SidebarResponsive(props: { routes: RoutesType[] }) {
 	let sidebarBackgroundColor = useColorModeValue('white', 'navy.800');
-	let menuColor = useColorModeValue('gray.400', 'white');
 	// // SIDEBAR
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 
 	const { routes } = props;
-	// let isWindows = navigator.platform.startsWith("Win");
-	//  BRAND
 
 	return (
     <Flex display={{ sm: "flex", xl: "none" }} alignItems="center">

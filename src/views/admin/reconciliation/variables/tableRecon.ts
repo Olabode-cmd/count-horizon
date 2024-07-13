@@ -1,64 +1,60 @@
 type RowObj = {
-  id: number;
+  warehouse: string;
   productId: string;
-  itemName: string
-  batch: string;
-  logisticArea: string;
-  expectedQuantity: number;
+  itemDescription: string;
+  uom: string;
+  ctnsSize: string;
+  costPrice: string;
   countedQuantity: number;
+  stockPositionQty: number;
   variance: number;
-  discrepancyStatus: string;
-  date: string;
 };
 
 const tableRecon: RowObj[] = [
   {
-      id: 5632,
-      productId: "PID-001",
-      itemName: "Smartphones",
-      batch: "456876",
-      logisticArea: "LA0012",
-      expectedQuantity: 450,
-      countedQuantity: 445,
-      variance: 5,
-      date: "23/06/2023",
-      discrepancyStatus: "Error"
+    warehouse: "Ojo Major Stores",
+    productId: "FG-001",
+    itemDescription: "EMGYL (METRONIDAZOLE) 400MG TABLETS (10*10)",
+    uom: "Pack",
+    ctnsSize: "100",
+    costPrice: "45,000",
+    countedQuantity: 445,
+    stockPositionQty: 555,
+    variance: 5,
   },
   {
-      id: 5632,
-      productId: "PID-002",
-      itemName: "Laptops",
-      batch: "412876",
-      logisticArea: "LA0012",
-      expectedQuantity: 450,
-      countedQuantity: 450,
-      variance: 0,
-      date: "23/06/2023",
-      discrepancyStatus: "Null"
+    warehouse: "Ikeja Warehouse Ltd.",
+    productId: "FG-041",
+    itemDescription:
+      "EMPRIN (ACETYL -SALICYLIC ACID) 75MG BLISTER TABLETS (10*10)",
+    uom: "Bottle",
+    ctnsSize: "100",
+    costPrice: "85,000",
+    countedQuantity: 545,
+    stockPositionQty: 458,
+    variance: 15,
   },
   {
-      id: 5632,
-      productId: "PID-003",
-      itemName: "iPads",
-      batch: "356898",
-      logisticArea: "LA0008",
-      expectedQuantity: 450,
-      countedQuantity: 450,
-      variance: 0,
-      date: "23/06/2023",
-      discrepancyStatus: "Null"
+    warehouse: "Ikeja Warehouse Ltd.",
+    productId: "FG-041",
+    itemDescription: "EMCILLIN (AMPICILLIN 125MG/5ML BP) SUSPENSION *100ML",
+    uom: "Bottle",
+    ctnsSize: "100",
+    costPrice: "85,000",
+    countedQuantity: 545,
+    stockPositionQty: 458,
+    variance: 15,
   },
   {
-      id: 5632,
-      productId: "PID-004",
-      itemName: "Radios",
-      batch: "456876",
-      logisticArea: "LA0019",
-      expectedQuantity: 450,
-      countedQuantity: 450,
-      variance: 0,
-      date: "23/06/2023",
-      discrepancyStatus: "Null"
+    warehouse: "Ikeja Warehouse Ltd.",
+    productId: "FG-041",
+    itemDescription: "EM-VIT-C (VITAMIN C 100MG) TABLETS WHITE * 1000",
+    uom: "Bottle",
+    ctnsSize: "100",
+    costPrice: "85,000",
+    countedQuantity: 545,
+    stockPositionQty: 458,
+    variance: 15,
   },
 ];
 

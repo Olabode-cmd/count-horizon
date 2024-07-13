@@ -1,5 +1,5 @@
 // Chakra imports
-import { Portal, Box, useDisclosure } from "@chakra-ui/react";
+import { Portal, Box, useDisclosure, Text } from "@chakra-ui/react";
 // Layout components
 import Navbar from "components/navbar/NavbarAdmin";
 import Sidebar from "components/sidebar/Sidebar";
@@ -91,6 +91,7 @@ export default function Dashboard(props: { [x: string]: any }) {
           setToggleSidebar,
         }}
       >
+        
         <Sidebar routes={filteredRoutes} display="none" {...rest} />
         <Box
           float="right"
